@@ -3,14 +3,13 @@ import {scale} from "../../utils/scaler";
 import colors from "../../themes/colors";
 
 const styles = StyleSheet.create({
-    safeAreaWrapper: {
+    buttonWrapper: {
+        width: scale(336),
+        height: scale(49),
         backgroundColor: colors.main.background,
-        flex: 1,
-    },
-    headerWrapper: {
-        backgroundColor: colors.main.background,
-        paddingBottom: scale(19),
-        alignItems: "center"
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: scale(6)
     },
     text: {
         alignSelf: "center",

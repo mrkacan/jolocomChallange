@@ -3,22 +3,27 @@ import colors from '../../themes/colors';
 import {scale} from "../../utils/scaler";
 
 const styles = StyleSheet.create({
-    generalInput: {
-        width:scale(336),
-        alignSelf:"center",
-        height: scale(55),
-        borderWidth: 1,
-        borderColor: colors.input.border,
-        backgroundColor: colors.input.background,
-        borderRadius: scale(10),
-        marginBottom: scale(10),
-        paddingHorizontal: scale(16),
-        color: colors.input.text
+    container: {
+        flex: 1,
+        backgroundColor: colors.main.background,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    focusedInput: {
-        borderColor: colors.input.focusedBorder,
-
+    title: {
+        color: colors.text.title,
+        textAlign: "center",
+        fontSize: scale(27)
     },
+    description: {
+        color: colors.text.text,
+        textAlign: "center",
+        fontSize: scale(14)
+    },
+    image: {
+        width: scale(43),
+        height: scale(44),
+        resizeMode: "cover"
+    }
 });
 
 export default styles;

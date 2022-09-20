@@ -1,54 +1,34 @@
 import React from "react";
-import {Text} from "react-native";
-import Animated, {
-    Extrapolate,
-    interpolate,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
-    useSharedValue
-} from "react-native-reanimated";
-import {SafeAreaView} from "react-native-safe-area-context";
+import {Pressable, Text} from "react-native";
 import styles from "./styles";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import Spacer from "../TextInput";
+import {LinearGradient} from 'expo-linear-gradient';
 
 type ITextInputProps = {
-    children: React.ReactElement;
-    title: string
+    type: 'default' | 'secondary'
+    children: string;
+    disabled: boolean;
+    onPress: () => void
 }
+const Button: React.FC<ITextInputProps> = ({
+                                               type = "default",
+                                               children,
+                                               disabled,
+                                               onPress
+                                           }) => {
 
-const HIDE_VALUE = 50
-
-const Collapsible: React.FC<ITextInputProps> = ({
-                                                    children,
-                                                    title,
-                                                }) => {
-    const translationY = useSharedValue(0);
-
-    const scrollHandler = useAnimatedScrollHandler({
-        onScroll: (event) => {
-            translationY.value = event.contentOffset.y;
-        },
-    });
-
-    const headerAnimatedStyle = useAnimatedStyle(() => {
-        const result = {
-            opacity: interpolate(translationY.value, [0, HIDE_VALUE], [0, 1], Extrapolate.CLAMP),
-        };
-        return result;
-    });
-    return <SafeAreaView style={styles.safeAreaWrapper}>
-            <Animated.View style={[styles.headerWrapper, headerAnimatedStyle]}>
-                <Text style={styles.text}>
-                    {title}
-                </Text>
-            </Animated.View>
-            <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
+    return <Pressable onPress={onPress} disabled={disabled}>
+        <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={type === 'default' ? ['#911942', '#D22D69'] : ['#292929', '#292929']}
+            style={[styles.buttonWrapper, disabled && {opacity: 0.5}]}
+        >
+            <Text style={styles.text}>
                 {children}
-                <Spacer height={350} />
-            </Animated.ScrollView>
-        </SafeAreaView>
+            </Text>
+        </LinearGradient>
+    </Pressable>
 }
 
 
-export default Collapsible;
+export default Button;
